@@ -24,9 +24,9 @@ function init(){
 
         //Functions to make the demography panel, bar chart and bubble chart, innitial pilots.
         demographic(name);
-        barChart(name);
-        bubbleChart(name);
-        gougeChart(name);
+        bar(name);
+        bubble(name);
+        gouge(name);
     });
 
 };
@@ -113,8 +113,8 @@ function bubble(sample) {
 
         console.log(otu_ids, otu_labels, sample_values)
 
-        //Plot the horizontal bar chart 
-        let trace1 = {
+        //Plot the bubble bar chart 
+        let trace1 = [{
             x: otu_ids,
             y: sample_values,
             text: otu_labels,
@@ -124,15 +124,28 @@ function bubble(sample) {
                 color: otu_ids,
                 colorscale: "Earth"
             }
-        };
+        }];
         
         //Set up layout 
         let layout = {
             title: "Bacteria Per Sample",
-            xaxis: {title: "OTU ID"}
+            xaxis: {title: "OTU ID"},
+            width: 1500,
+            height: 550
         };
 
         //Plot data into a bubble chart using plotly 
         Plotly.newPlot("bubble", trace1, layout);
     });
 }
+
+//Gouge chart space 
+
+
+//Function that updates dashboard when sample changes
+function optionChange (sample){
+    demographic(sample);
+    bar(sample);
+    bubble(sample)
+}
+init();
